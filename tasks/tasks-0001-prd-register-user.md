@@ -120,7 +120,7 @@
 ### 1.0 Setup Shared Kernel Project
 
 - [x] 1.1 Create `src/Shared.Kernel` project with `dotnet new classlib`
-- [ ] 1.2 Create `tests/Tests.Shared.Kernel` test project with `dotnet new xunit3`
+- [x] 1.2 Create `tests/Tests.Shared.Kernel` test project with `dotnet new xunit3`
 - [ ] 1.3 Add Shared.Kernel reference to Tests.Shared.Kernel
 - [ ] 1.4 Update Directory.Packages.props with required NuGet packages (xUnit, AwesomeAssertions)
 - [ ] 1.5 Write failing test for `Result.Success()` in `ResultTests.cs` (TDD)
