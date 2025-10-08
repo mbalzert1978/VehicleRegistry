@@ -125,13 +125,13 @@
 - [x] 1.4 Update Directory.Packages.props with required NuGet packages (AwesomeAssertions)
 - [x] 1.5 Write failing test for `Result.Success()` in `ResultTests.cs` (TDD)
 - [x] 1.6 Implement `Result` class with `IsSuccess`, `IsFailure`, `Error` properties
-- [ ] 1.7 Write failing test for `Result.Failure(error)` (TDD)
-- [ ] 1.8 Implement `Result.Failure()` static factory method
-- [ ] 1.9 Write failing tests for `Result<T>.Success(value)` in `ResultTTests.cs` (TDD)
-- [ ] 1.10 Implement `Result<T>` class with `Value` property and factory methods
-- [ ] 1.11 Write failing test for `Result<T>.Failure(error)` (TDD)
-- [ ] 1.12 Implement error handling in `Result<T>` (throw when accessing Value on failure)
-- [ ] 1.13 Create `Error` record with `Code`, `Message` properties
+- [x] 1.7 Write failing test for `Result.Failure(error)` (TDD)
+- [x] 1.8 Implement `Result.Failure()` static factory method
+- [x] 1.9 Write failing tests for `Result<T>.Success(value)` in `ResultTTests.cs` (TDD)
+- [x] 1.10 Implement `Result<T>` class with `Value` property and factory methods
+- [x] 1.11 Write failing test for `Result<T>.Failure(error)` (TDD)
+- [x] 1.12 Implement error handling in `Result<T>` (throw when accessing Value on failure)
+- [x] 1.13 Create `Error` record with `Code`, `Message` properties
 - [ ] 1.14 Write failing tests for `IValidationRule<T>` interface usage (TDD)
 - [ ] 1.15 Implement `IValidationRule<T>` interface with `Validate(T value)` method returning `Result`
 - [ ] 1.16 Write failing tests for `RuleComposer<T>` in `RuleComposerTests.cs` (TDD)
