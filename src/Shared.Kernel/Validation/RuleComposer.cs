@@ -1,4 +1,5 @@
 using System.Collections.Immutable;
+using System.Diagnostics;
 
 namespace Shared.Kernel;
 
@@ -27,6 +28,7 @@ public sealed record RuleComposer<TRuleFor>(ImmutableList<IValidationRule<TRuleF
 }
 
 /// <summary>
+/// <summary>
 /// Factory for creating RuleComposer instances.
 /// </summary>
 public static class RuleComposerFactory
@@ -37,5 +39,15 @@ public static class RuleComposerFactory
     /// <typeparam name="T">The type of value to validate.</typeparam>
     /// <param name="rules">The validation rules to compose.</param>
     /// <returns>A new <see cref="RuleComposer{T}"/> instance.</returns>
-    public static RuleComposer<T> Create<T>(params IValidationRule<T>[] rules) => new([.. rules]);
+    public static RuleComposer<T> Create<T>(params IValidationRule<T>[] rules)
+    {
+        Debug.Assert(rules is not null, "Rules array cannot be null.");
+
+        RuleComposer<T> result = new([.. rules]);
+
+        Debug.Assert(result.Rules is not null, "Composer rules list cannot be null.");
+        Debug.Assert(result.Rules.Count == rules.Length, "Composer must contain all provided rules.");
+
+        return result;
+    }
 }

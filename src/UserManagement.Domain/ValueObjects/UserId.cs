@@ -1,5 +1,5 @@
 using System.Diagnostics;
-using UserManagement.Domain.Common;
+using Shared.Kernel;
 
 namespace UserManagement.Domain.ValueObjects;
 

@@ -1,4 +1,4 @@
-namespace UserManagement.Domain.Common;
+namespace Shared.Kernel;
 
 /// <summary>
 /// Base record for strongly-typed identifiers.

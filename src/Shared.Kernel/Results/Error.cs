@@ -1,3 +1,5 @@
+using System.Diagnostics;
+
 namespace Shared.Kernel;
 
 /// <summary>
@@ -23,5 +25,16 @@ public static class ErrorFactory
     /// <param name="code">The error code.</param>
     /// <param name="message">The error message.</param>
     /// <returns>A new <see cref="Error"/> instance.</returns>
-    public static Error Create(string code, string message) => new(code, message);
+    public static Error Create(string code, string message)
+    {
+        Debug.Assert(!string.IsNullOrWhiteSpace(code), "Error code cannot be null or whitespace.");
+        Debug.Assert(message is not null, "Error message cannot be null.");
+
+        Error result = new(code, message);
+
+        Debug.Assert(result.Code == code, "Error code must match the provided value.");
+        Debug.Assert(result.Message == message, "Error message must match the provided value.");
+
+        return result;
+    }
 }
