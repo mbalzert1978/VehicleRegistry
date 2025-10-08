@@ -150,8 +150,8 @@
 - [x] 2.5 Implement base class `StronglyTypedId<T>` with `Value` property
 - [x] 2.6 Write failing tests for `UserProfileId` and `AddressId` (TDD)
 - [x] 2.7 Implement `UserProfileId` and `AddressId` strongly-typed IDs
-- [ ] 2.8 Write failing tests for `Email` value object in `EmailTests.cs` (TDD - basic creation)
-- [ ] 2.9 Implement `Email` record with `Value` property and `EmailFactory.Create()` method
+- [x] 2.8 Write failing tests for `Email` value object in `EmailTests.cs` (TDD - basic creation)
+- [x] 2.9 Implement `Email` record with `Value` property and `EmailFactory.Create()` method
 - [ ] 2.10 Write failing test for Email validation with RuleComposer (TDD)
 - [ ] 2.11 Implement Email validation in `EmailFactory.Create()` returning `Result<Email>`
 - [ ] 2.12 Write failing tests for `Name` value object (FirstName, LastName) (TDD)
