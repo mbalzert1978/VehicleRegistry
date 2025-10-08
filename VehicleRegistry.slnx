@@ -21,4 +21,7 @@
     <Project Path="src/VehicleRegistry.Domain/VehicleRegistry.Domain.csproj" />
     <Project Path="src/VehicleRegistry.Infrastructure/VehicleRegistry.Infrastructure.csproj" />
   </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Tests.UserManagement.Api/Tests.UserManagement.Api.csproj" />
+  </Folder>
 </Solution>
