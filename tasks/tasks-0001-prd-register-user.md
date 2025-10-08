@@ -10,7 +10,7 @@
 ## Pre-Implementation Setup
 
 - [x] 0.1 Create feature branch `feature/0001-register-user` from `main`
-- [ ] 0.2 Verify all dependencies are installed and projects build successfully
+- [x] 0.2 Verify all dependencies are installed and projects build successfully
 
 ---
 
@@ -114,8 +114,8 @@
 
 ## Tasks
 
-- [ ] 0.1 Create feature branch `feature/0001-register-user` from `main`
-- [ ] 0.2 Verify all dependencies are installed and projects build successfully
+- [x] 0.1 Create feature branch `feature/0001-register-user` from `main`
+- [x] 0.2 Verify all dependencies are installed and projects build successfully
 
 ### 1.0 Setup Shared Kernel Project
 
