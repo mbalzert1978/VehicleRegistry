@@ -136,9 +136,9 @@
 - [x] 1.15 Implement `IValidationRule<T>` interface with `Validate(T value)` method returning `Result`
 - [x] 1.16 Write failing tests for `RuleComposer<T>` in `RuleComposerTests.cs` (TDD)
 - [x] 1.17 Implement `RuleComposer<T>` class that composes multiple `IValidationRule<T>` instances
-- [ ] 1.18 Write failing tests for `IRequestHandler<TRequest, TResponse>` interface (TDD)
-- [ ] 1.19 Implement `IRequestHandler<TRequest, TResponse>` interface with `Handle()` method
-- [ ] 1.20 Run all Shared.Kernel tests and ensure 100% pass rate
+- [x] 1.18 Write failing tests for `IRequestHandler<TRequest, TResponse>` interface (TDD)
+- [x] 1.19 Implement `IRequestHandler<TRequest, TResponse>` interface with `Handle()` method
+- [x] 1.20 Run all Shared.Kernel tests and ensure 100% pass rate
 - [ ] 1.21 Commit: "feat(shared-kernel): add Result, RuleComposer, and RequestHandler patterns"
 
 ### 2.0 Implement Domain Layer (Entities, ValueObjects, Discriminated Unions)
