@@ -31,6 +31,7 @@ public sealed class EmailValidationRulesTests
     [InlineData("example@inv-.-alid.com", false)]
     [InlineData("test@example.com\n\n<script src=\"x.js\">", false)]
     [InlineData("trailingdot@shouldfail.com.", false)]
+    [InlineData("trailingdot@should..fail.com", false)]
     [InlineData("a@b.com\n", false)]
     [InlineData("a\n@b.com", false)]
     [InlineData("John.Doe@exam_ple.com", false)]
