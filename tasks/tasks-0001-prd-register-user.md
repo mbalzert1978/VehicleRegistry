@@ -154,8 +154,8 @@
 - [x] 2.9 Implement `Email` record with `Value` property and `EmailFactory.Create()` method
 - [x] 2.10 Write failing test for Email validation with RuleComposer (TDD)
 - [x] 2.11 Implement Email validation in `EmailFactory.Create()` returning `Result<Email>`
-- [ ] 2.12 Write failing tests for `Name` value object (FirstName, LastName) (TDD)
-- [ ] 2.13 Implement `Name` record with validation in `NameFactory.Create()`
+- [x] 2.12 Write failing tests for `Name` value object (FirstName, LastName) (TDD)
+- [x] 2.13 Implement `Name` record with validation in `NameFactory.Create()`
 - [ ] 2.14 Write failing tests for `PasswordHash` value object (TDD)
 - [ ] 2.15 Implement `PasswordHash` record with factory method (no plain-text storage)
 - [ ] 2.16 Write failing tests for `UserRole` value object with predefined values (TDD)
