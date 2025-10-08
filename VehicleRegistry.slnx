@@ -12,6 +12,7 @@
     <File Path="Directory.Packages.props" />
   </Folder>
   <Folder Name="/src/">
+    <Project Path="src/Shared.Kernel/Shared.Kernel.csproj" />
     <Project Path="src/UserManagement.Api/UserManagement.Api.csproj" />
     <Project Path="src/UserManagement.Application/UserManagement.Application.csproj" />
     <Project Path="src/UserManagement.Domain/UserManagement.Domain.csproj" />
