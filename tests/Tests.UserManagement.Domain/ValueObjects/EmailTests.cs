@@ -59,6 +59,39 @@ public sealed class EmailTests
         result1.Value.Should().NotBe(result2.Value);
     }
 
+    [Fact]
+    public void Email_WhenCreatedWithMultipleValidRules_ShouldReturnSuccess()
+    {
+        const string validEmail = "test@example.com";
+        IValidationRule<string>[] rules =
+        [
+            new AlwaysValidRule(),
+            new AlwaysValidRule(),
+            new AlwaysValidRule()
+        ];
+
+        Result<Email> result = EmailFactory.Create(validEmail, rules);
+
+        result.IsSuccess.Should().BeTrue();
+        result.Value.Value.Should().Be(validEmail);
+    }
+
+    [Fact]
+    public void Email_WhenCreatedWithOneInvalidRule_ShouldReturnFailure()
+    {
+        const string email = "test@example.com";
+        IValidationRule<string>[] rules =
+        [
+            new AlwaysValidRule(),
+            new AlwaysInvalidRule(),
+            new AlwaysValidRule()
+        ];
+
+        Result<Email> result = EmailFactory.Create(email, rules);
+
+        result.IsFailure.Should().BeTrue();
+    }
+
     private sealed class AlwaysValidRule : IValidationRule<string>
     {
         public Result Validate(string value) => ResultFactory.Success();

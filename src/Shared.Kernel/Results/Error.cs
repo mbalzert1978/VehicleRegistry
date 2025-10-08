@@ -37,4 +37,13 @@ public static class ErrorFactory
 
         return result;
     }
+
+    /// <summary>
+    /// Creates a validation error for a specific field with the given message.
+    /// </summary>
+    /// <param name="field">The field that caused the error.</param>
+    /// <param name="message">The error message.</param>
+    /// <returns>A new <see cref="Error"/> instance.</returns>
+    public static Error Validation(string field, string message) =>
+        Create($"{field.ToUpperInvariant()}.Validation", message);
 }
