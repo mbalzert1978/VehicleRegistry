@@ -143,11 +143,11 @@
 
 ### 2.0 Implement Domain Layer (Entities, ValueObjects, Discriminated Unions)
 
-- [ ] 2.1 Create `tests/Tests.UserManagement.Domain` project with `dotnet new xunit3`
-- [ ] 2.2 Add references: Shared.Kernel, UserManagement.Domain to test project
-- [ ] 2.3 Write failing test for `UserId` strongly-typed ID in `UserIdTests.cs` (TDD)
-- [ ] 2.4 Implement `UserId` record inheriting from `StronglyTypedId<Guid>`
-- [ ] 2.5 Implement base class `StronglyTypedId<T>` with `Value` property
+- [x] 2.1 Create `tests/Tests.UserManagement.Domain` project with `dotnet new xunit3`
+- [x] 2.2 Add references: Shared.Kernel, UserManagement.Domain to test project
+- [x] 2.3 Write failing test for `UserId` strongly-typed ID in `UserIdTests.cs` (TDD)
+- [x] 2.4 Implement `UserId` record inheriting from `StronglyTypedId<Guid>`
+- [x] 2.5 Implement base class `StronglyTypedId<T>` with `Value` property
 - [ ] 2.6 Write failing tests for `UserProfileId` and `AddressId` (TDD)
 - [ ] 2.7 Implement `UserProfileId` and `AddressId` strongly-typed IDs
 - [ ] 2.8 Write failing tests for `Email` value object in `EmailTests.cs` (TDD - basic creation)

@@ -25,5 +25,6 @@
   <Folder Name="/tests/">
     <Project Path="tests/Tests.Shared.Kernel/Tests.Shared.Kernel.csproj" />
     <Project Path="tests/Tests.UserManagement.Api/Tests.UserManagement.Api.csproj" />
+    <Project Path="tests/Tests.UserManagement.Domain/Tests.UserManagement.Domain.csproj" />
   </Folder>
 </Solution>

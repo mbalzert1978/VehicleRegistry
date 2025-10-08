@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>Tests.UserManagement.Domain</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include="xunit.runner.json" CopyToOutputDirectory="PreserveNewest" />
+    <Using Include="Xunit" />
+    <Using Include="AwesomeAssertions" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" />
+    <PackageReference Include="xunit.v3" />
+    <PackageReference Include="xunit.runner.visualstudio" />
+    <PackageReference Include="AwesomeAssertions" />
+    <ProjectReference Include="..\..\src\Shared.Kernel\Shared.Kernel.csproj" />
+    <ProjectReference Include="..\..\src\UserManagement.Domain\UserManagement.Domain.csproj" />
+  </ItemGroup>
+</Project>
