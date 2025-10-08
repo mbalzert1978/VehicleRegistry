@@ -132,10 +132,10 @@
 - [x] 1.11 Write failing test for `Result<T>.Failure(error)` (TDD)
 - [x] 1.12 Implement error handling in `Result<T>` (throw when accessing Value on failure)
 - [x] 1.13 Create `Error` record with `Code`, `Message` properties
-- [ ] 1.14 Write failing tests for `IValidationRule<T>` interface usage (TDD)
-- [ ] 1.15 Implement `IValidationRule<T>` interface with `Validate(T value)` method returning `Result`
-- [ ] 1.16 Write failing tests for `RuleComposer<T>` in `RuleComposerTests.cs` (TDD)
-- [ ] 1.17 Implement `RuleComposer<T>` class that composes multiple `IValidationRule<T>` instances
+- [x] 1.14 Write failing tests for `IValidationRule<T>` interface usage (TDD)
+- [x] 1.15 Implement `IValidationRule<T>` interface with `Validate(T value)` method returning `Result`
+- [x] 1.16 Write failing tests for `RuleComposer<T>` in `RuleComposerTests.cs` (TDD)
+- [x] 1.17 Implement `RuleComposer<T>` class that composes multiple `IValidationRule<T>` instances
 - [ ] 1.18 Write failing tests for `IRequestHandler<TRequest, TResponse>` interface (TDD)
 - [ ] 1.19 Implement `IRequestHandler<TRequest, TResponse>` interface with `Handle()` method
 - [ ] 1.20 Run all Shared.Kernel tests and ensure 100% pass rate
