@@ -13,7 +13,7 @@ public static class AddressIdFactory
 
         Debug.Assert(value != Guid.Empty, "Generated Guid must not be empty");
 
-        var id = new AddressId(value);
+        AddressId id = new(value);
 
         Debug.Assert(id.Value == value, "AddressId value must match input");
         Debug.Assert(id.Value != Guid.Empty, "AddressId value must not be empty after creation");
@@ -25,7 +25,7 @@ public static class AddressIdFactory
     {
         Debug.Assert(value != Guid.Empty, "Guid value must not be empty");
 
-        var id = new AddressId(value);
+        AddressId id = new(value);
 
         Debug.Assert(id.Value == value, "AddressId value must match input");
         Debug.Assert(id.Value != Guid.Empty, "AddressId value must not be empty after creation");
