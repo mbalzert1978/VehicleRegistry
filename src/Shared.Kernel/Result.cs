@@ -59,4 +59,20 @@ public static class ResultFactory
     /// <param name="error">The error that caused the failure.</param>
     /// <returns>A Failure result instance containing the error.</returns>
     public static Result Failure(Error error) => new Failure(error);
+
+    /// <summary>
+    /// Creates a successful result with a value.
+    /// </summary>
+    /// <typeparam name="T">The type of the value.</typeparam>
+    /// <param name="value">The value of the successful operation.</param>
+    /// <returns>A Success&lt;T&gt; result instance containing the value.</returns>
+    public static Result<T> Success<T>(T value) => new Success<T>(value);
+
+    /// <summary>
+    /// Creates a failed result with the specified error.
+    /// </summary>
+    /// <typeparam name="T">The type of the value that would have been returned on success.</typeparam>
+    /// <param name="error">The error that caused the failure.</param>
+    /// <returns>A Failure&lt;T&gt; result instance containing the error.</returns>
+    public static Result<T> Failure<T>(Error error) => new Failure<T>(error);
 }
