@@ -124,7 +124,7 @@
 - [x] 1.3 Add Shared.Kernel reference to Tests.Shared.Kernel
 - [x] 1.4 Update Directory.Packages.props with required NuGet packages (AwesomeAssertions)
 - [x] 1.5 Write failing test for `Result.Success()` in `ResultTests.cs` (TDD)
-- [ ] 1.6 Implement `Result` class with `IsSuccess`, `IsFailure`, `Error` properties
+- [x] 1.6 Implement `Result` class with `IsSuccess`, `IsFailure`, `Error` properties
 - [ ] 1.7 Write failing test for `Result.Failure(error)` (TDD)
 - [ ] 1.8 Implement `Result.Failure()` static factory method
 - [ ] 1.9 Write failing tests for `Result<T>.Success(value)` in `ResultTTests.cs` (TDD)
