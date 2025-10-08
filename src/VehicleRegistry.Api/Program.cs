@@ -1,20 +1,7 @@
-namespace VehicleRegistry.Api;
+WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
-internal sealed class Program
-{
-    public static async Task Main(string[] args)
-    {
-        WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+WebApplication app = builder.Build();
 
-        WebApplication app = builder.Build();
+app.UseHttpsRedirection();
 
-        app.UseHttpsRedirection();
-
-        await app.RunAsync();
-    }
-}
-
-internal sealed record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
+await app.RunAsync();
