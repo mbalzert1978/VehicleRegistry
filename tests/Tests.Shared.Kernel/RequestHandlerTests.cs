@@ -34,17 +34,17 @@ public sealed class RequestHandlerTests
 
     private sealed class TestRequestHandler : IRequestHandler<TestRequest, TestResponse>
     {
-        public Task<Result<TestResponse>> HandleAsync(TestRequest request)
-        {
-            if (request.Data == "fail")
+        public Task<Result<TestResponse>> HandleAsync(TestRequest request) =>
+            request switch
             {
-                return Task.FromResult(
+                { Data: "fail" } => Task.FromResult(
                     ResultFactory.Failure<TestResponse>(
-                        ErrorFactory.Create("TEST_ERROR", "Handler failed")));
-            }
-
-            TestResponse response = new($"Processed: {request.Data}");
-            return Task.FromResult(ResultFactory.Success(response));
-        }
+                        ErrorFactory.Create("TEST_ERROR", "Handler failed")
+                    )
+                ),
+                _ => Task.FromResult(
+                    ResultFactory.Success<TestResponse>(new($"Processed: {request.Data}"))
+                ),
+            };
     }
 }

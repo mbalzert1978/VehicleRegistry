@@ -2,7 +2,6 @@ using Shared.Kernel;
 
 namespace Tests.Shared.Kernel;
 
-
 public sealed class ResultTests
 {
     [Fact]

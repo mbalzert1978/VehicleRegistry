@@ -8,7 +8,8 @@ namespace Shared.Kernel;
 /// </summary>
 /// <typeparam name="TRuleFor">The type of value to validate.</typeparam>
 /// <param name="Rules">The collection of validation rules to compose.</param>
-public sealed record RuleComposer<TRuleFor>(ImmutableList<IValidationRule<TRuleFor>> Rules) : IValidationRule<TRuleFor>
+public sealed record RuleComposer<TRuleFor>(ImmutableList<IValidationRule<TRuleFor>> Rules)
+    : IValidationRule<TRuleFor>
 {
     /// <summary>
     /// Validates the specified value against all composed rules.
@@ -21,7 +22,8 @@ public sealed record RuleComposer<TRuleFor>(ImmutableList<IValidationRule<TRuleF
     public Result Validate(TRuleFor value) =>
         Rules.Aggregate(
             ResultFactory.Success(),
-            (current, rule) => current.IsFailure ? current : rule.Validate(value));
+            (current, rule) => current.IsFailure ? current : rule.Validate(value)
+        );
 }
 
 /// <summary>
@@ -35,6 +37,5 @@ public static class RuleComposerFactory
     /// <typeparam name="T">The type of value to validate.</typeparam>
     /// <param name="rules">The validation rules to compose.</param>
     /// <returns>A new <see cref="RuleComposer{T}"/> instance.</returns>
-    public static RuleComposer<T> Create<T>(params IValidationRule<T>[] rules) =>
-        new([.. rules]);
+    public static RuleComposer<T> Create<T>(params IValidationRule<T>[] rules) => new([.. rules]);
 }
