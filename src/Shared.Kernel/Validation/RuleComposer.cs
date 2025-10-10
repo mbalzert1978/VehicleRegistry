@@ -46,7 +46,10 @@ public static class RuleComposerFactory
         RuleComposer<T> result = new([.. rules]);
 
         Debug.Assert(result.Rules is not null, "Composer rules list cannot be null.");
-        Debug.Assert(result.Rules.Count == rules.Length, "Composer must contain all provided rules.");
+        Debug.Assert(
+            result.Rules.Count == rules.Length,
+            "Composer must contain all provided rules."
+        );
 
         return result;
     }

@@ -16,7 +16,10 @@ public static class UserProfileIdFactory
         UserProfileId id = new(value);
 
         Debug.Assert(id.Value == value, "UserProfileId value must match input");
-        Debug.Assert(id.Value != Guid.Empty, "UserProfileId value must not be empty after creation");
+        Debug.Assert(
+            id.Value != Guid.Empty,
+            "UserProfileId value must not be empty after creation"
+        );
 
         return id;
     }
@@ -28,7 +31,10 @@ public static class UserProfileIdFactory
         UserProfileId id = new(value);
 
         Debug.Assert(id.Value == value, "UserProfileId value must match input");
-        Debug.Assert(id.Value != Guid.Empty, "UserProfileId value must not be empty after creation");
+        Debug.Assert(
+            id.Value != Guid.Empty,
+            "UserProfileId value must not be empty after creation"
+        );
 
         return id;
     }

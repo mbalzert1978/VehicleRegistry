@@ -66,8 +66,6 @@ public sealed class EmailTests
         IValidationRule<string>[] rules =
         [
             new AlwaysValidRule(),
-            new AlwaysValidRule(),
-            new AlwaysValidRule()
         ];
 
         Result<Email> result = EmailFactory.Create(validEmail, rules);
@@ -84,7 +82,6 @@ public sealed class EmailTests
         [
             new AlwaysValidRule(),
             new AlwaysInvalidRule(),
-            new AlwaysValidRule()
         ];
 
         Result<Email> result = EmailFactory.Create(email, rules);

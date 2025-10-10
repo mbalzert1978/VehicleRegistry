@@ -15,7 +15,10 @@ public sealed class EmailValidationRulesTests
     [InlineData("test@domain.with.idn.tld.उदाहरण.परीक्षा", true)]
     [InlineData("a@atm.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", true)]
     [InlineData("a@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.atm", true)]
-    [InlineData("a@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.bbbbbbbbbb.atm", true)]
+    [InlineData(
+        "a@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.bbbbbbbbbb.atm",
+        true
+    )]
     [InlineData("a@atm.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", false)] // 64 chars label
     [InlineData("", false)]
     [InlineData("abc", false)]
@@ -36,7 +39,10 @@ public sealed class EmailValidationRulesTests
     [InlineData("a\n@b.com", false)]
     [InlineData("John.Doe@exam_ple.com", false)]
     // RFC 5321 tests
-    [InlineData("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa@mail.com", false)] // 65 char local part
+    [InlineData(
+        "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa@mail.com",
+        false
+    )] // 65 char local part
     public void EmailRules_WhenCombined_ShouldValidateCorrectly(string email, bool expectedValid)
     {
         IValidationRule<string>[] rules =
@@ -53,7 +59,7 @@ public sealed class EmailValidationRulesTests
             new ValidDomainHyphensRule(),
             new DomainLabelMaxLengthRule(),
             new DomainNotStartWithDotRule(),
-            new NoConsecutiveDotsInDomainRule()
+            new NoConsecutiveDotsInDomainRule(),
         ];
 
         RuleComposer<string> composedRule = RuleComposerFactory.Create(rules);

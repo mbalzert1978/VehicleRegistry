@@ -29,7 +29,7 @@ public sealed class PasswordHashTests
         Error error = result switch
         {
             Failure<PasswordHash>(var e) => e,
-            _ => throw new InvalidOperationException("Expected Failure")
+            _ => throw new InvalidOperationException("Expected Failure"),
         };
 
         error.Code.Should().Be("PASSWORDHASH.Validation");
@@ -47,7 +47,7 @@ public sealed class PasswordHashTests
         Error error = result switch
         {
             Failure<PasswordHash>(var e) => e,
-            _ => throw new InvalidOperationException("Expected Failure")
+            _ => throw new InvalidOperationException("Expected Failure"),
         };
 
         error.Code.Should().Be("PASSWORDHASH.Validation");
@@ -65,7 +65,7 @@ public sealed class PasswordHashTests
         Error error = result switch
         {
             Failure<PasswordHash>(var e) => e,
-            _ => throw new InvalidOperationException("Expected Failure")
+            _ => throw new InvalidOperationException("Expected Failure"),
         };
 
         error.Code.Should().Be("PASSWORDHASH.Validation");

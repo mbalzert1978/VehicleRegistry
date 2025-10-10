@@ -37,7 +37,7 @@ public sealed class NameTests
         Error error = result switch
         {
             Failure<Name>(var e) => e,
-            _ => throw new InvalidOperationException("Expected Failure")
+            _ => throw new InvalidOperationException("Expected Failure"),
         };
 
         error.Code.Should().Be("FIRSTNAME.Validation");
@@ -54,7 +54,7 @@ public sealed class NameTests
         Error error = result switch
         {
             Failure<Name>(var e) => e,
-            _ => throw new InvalidOperationException("Expected Failure")
+            _ => throw new InvalidOperationException("Expected Failure"),
         };
 
         error.Code.Should().Be("LASTNAME.Validation");
@@ -71,7 +71,7 @@ public sealed class NameTests
         Error error = result switch
         {
             Failure<Name>(var e) => e,
-            _ => throw new InvalidOperationException("Expected Failure")
+            _ => throw new InvalidOperationException("Expected Failure"),
         };
 
         error.Code.Should().Be("FIRSTNAME.Validation");
@@ -88,7 +88,7 @@ public sealed class NameTests
         Error error = result switch
         {
             Failure<Name>(var e) => e,
-            _ => throw new InvalidOperationException("Expected Failure")
+            _ => throw new InvalidOperationException("Expected Failure"),
         };
 
         error.Code.Should().Be("LASTNAME.Validation");
@@ -107,7 +107,7 @@ public sealed class NameTests
         Error error = result switch
         {
             Failure<Name>(var e) => e,
-            _ => throw new InvalidOperationException("Expected Failure")
+            _ => throw new InvalidOperationException("Expected Failure"),
         };
 
         error.Code.Should().Be("FIRSTNAME.Validation");
@@ -126,7 +126,7 @@ public sealed class NameTests
         Error error = result switch
         {
             Failure<Name>(var e) => e,
-            _ => throw new InvalidOperationException("Expected Failure")
+            _ => throw new InvalidOperationException("Expected Failure"),
         };
 
         error.Code.Should().Be("LASTNAME.Validation");

@@ -25,7 +25,8 @@ public static class PasswordHashFactory
         {
             Error error = ErrorFactory.Validation(
                 "PasswordHash",
-                "Password hash cannot be empty or whitespace.");
+                "Password hash cannot be empty or whitespace."
+            );
 
             Debug.Assert(error.Code == "PASSWORDHASH.Validation", "Error code should match");
 
@@ -35,7 +36,10 @@ public static class PasswordHashFactory
         PasswordHash passwordHash = new(hash);
 
         Debug.Assert(passwordHash.Value == hash, "PasswordHash value should match input");
-        Debug.Assert(!string.IsNullOrWhiteSpace(passwordHash.Value), "PasswordHash value should not be empty");
+        Debug.Assert(
+            !string.IsNullOrWhiteSpace(passwordHash.Value),
+            "PasswordHash value should not be empty"
+        );
 
         return ResultFactory.Success(passwordHash);
     }

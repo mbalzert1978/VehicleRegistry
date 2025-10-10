@@ -19,7 +19,7 @@ public static class EmailFactory
         {
             Success => CreateEmail(value),
             Failure failure => ResultFactory.Failure<Email>(failure.Error),
-            _ => throw new InvalidOperationException("Unknown Result type")
+            _ => throw new InvalidOperationException("Unknown Result type"),
         };
     }
 
@@ -28,7 +28,10 @@ public static class EmailFactory
         Email email = new(value);
 
         Debug.Assert(email.Value == value, "Email value must match input");
-        Debug.Assert(!string.IsNullOrWhiteSpace(email.Value), "Email value must not be empty after creation");
+        Debug.Assert(
+            !string.IsNullOrWhiteSpace(email.Value),
+            "Email value must not be empty after creation"
+        );
 
         return ResultFactory.Success(email);
     }

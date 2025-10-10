@@ -3,7 +3,6 @@ using UserManagement.Domain.ValueObjects;
 
 namespace Tests.UserManagement.Domain.ValueObjects;
 
-
 public sealed class UserProfileIdTests
 {
     [Fact]
