@@ -39,6 +39,10 @@ This directory contains comprehensive architectural documentation organized for 
 2. **[31-code-examples.md](./31-code-examples.md)** - Concrete implementation examples
 3. **[32-decision-log.md](./32-decision-log.md)** - Architectural decision records
 
+### Task Documentation
+
+1. **[tasks/2.16-2.17-userrole.md](./tasks/2.16-2.17-userrole.md)** - UserRole discriminated union implementation
+
 ---
 
 ## 🎯 How to Use This Documentation
@@ -127,8 +131,9 @@ This documentation is updated as the codebase evolves:
   - Shared Kernel complete
   - UserManagement Domain complete
   - Email validation rules (13 rules)
-  - Value objects: Email, Name, PasswordHash
+  - Value objects: Email, Name, PasswordHash, UserRole
   - Strongly-typed IDs: UserId, UserProfileId, AddressId
+  - UserRole as discriminated union (StandardUser, Admin)
 
 ---
 
