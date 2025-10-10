@@ -31,20 +31,8 @@ public static class StreetFactory
             Debug.Assert(failureResult.IsFailure, "Result should be a failure");
             return failureResult;
         }
+        Debug.Assert(validationResult.IsSuccess, "Validation result should be a success");
 
-        Debug.Assert(
-            !string.IsNullOrWhiteSpace(street.Value),
-            "Street value must not be empty after creation"
-        );
-        Debug.Assert(
-            street.Value.Length <= MaxLength,
-            "Street value must not exceed maximum length after creation"
-        );
-
-        Result<Street> success = ResultFactory.Success(street);
-        Debug.Assert(success.IsSuccess, "Result should be a success");
-        Debug.Assert(success.Value == street, "Result value should be the created street");
-
-        return success;
+        return ResultFactory.Success(street);
     }
 }

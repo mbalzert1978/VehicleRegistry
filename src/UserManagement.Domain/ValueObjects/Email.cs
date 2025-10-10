@@ -41,16 +41,8 @@ public static class EmailFactory
             Debug.Assert(failureResult.IsFailure, "Result should be a failure");
             return failureResult;
         }
+        Debug.Assert(validationResult.IsSuccess, "Validation result should be a success");
 
-        Debug.Assert(
-            !string.IsNullOrWhiteSpace(email.Value),
-            "Email value must not be empty after creation"
-        );
-
-        Result<Email> success = ResultFactory.Success(email);
-        Debug.Assert(success.IsSuccess, "Result should be a success");
-        Debug.Assert(success.Value == email, "Result value should be the created email");
-
-        return success;
+        return ResultFactory.Success(email);
     }
 }

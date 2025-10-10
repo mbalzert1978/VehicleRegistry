@@ -31,20 +31,8 @@ public static class CountryFactory
             Debug.Assert(failureResult.IsFailure, "Result should be a failure");
             return failureResult;
         }
+        Debug.Assert(validationResult.IsSuccess, "Validation result should be a success");
 
-        Debug.Assert(
-            !string.IsNullOrWhiteSpace(country.Value),
-            "Country value must not be empty after creation"
-        );
-        Debug.Assert(
-            country.Value.Length <= MaxLength,
-            "Country value must not exceed maximum length after creation"
-        );
-
-        Result<Country> success = ResultFactory.Success(country);
-        Debug.Assert(success.IsSuccess, "Result should be a success");
-        Debug.Assert(success.Value == country, "Result value should be the created country");
-
-        return success;
+        return ResultFactory.Success(country);
     }
 }

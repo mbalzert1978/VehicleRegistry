@@ -34,20 +34,8 @@ public static class PostalCodeFactory
             Debug.Assert(failureResult.IsFailure, "Result should be a failure");
             return failureResult;
         }
+        Debug.Assert(validationResult.IsSuccess, "Validation result should be a success");
 
-        Debug.Assert(
-            !string.IsNullOrWhiteSpace(postalCode.Value),
-            "PostalCode value must not be empty after creation"
-        );
-        Debug.Assert(
-            postalCode.Value.Length <= MaxLength,
-            "PostalCode value must not exceed maximum length after creation"
-        );
-
-        Result<PostalCode> success = ResultFactory.Success(postalCode);
-        Debug.Assert(success.IsSuccess, "Result should be a success");
-        Debug.Assert(success.Value == postalCode, "Result value should be the created postal code");
-
-        return success;
+        return ResultFactory.Success(postalCode);
     }
 }

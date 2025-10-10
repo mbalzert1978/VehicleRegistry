@@ -31,20 +31,8 @@ public static class CityFactory
             Debug.Assert(failureResult.IsFailure, "Result should be a failure");
             return failureResult;
         }
+        Debug.Assert(validationResult.IsSuccess, "Validation result should be a success");
 
-        Debug.Assert(
-            !string.IsNullOrWhiteSpace(city.Value),
-            "City value must not be empty after creation"
-        );
-        Debug.Assert(
-            city.Value.Length <= MaxLength,
-            "City value must not exceed maximum length after creation"
-        );
-
-        Result<City> success = ResultFactory.Success(city);
-        Debug.Assert(success.IsSuccess, "Result should be a success");
-        Debug.Assert(success.Value == city, "Result value should be the created city");
-
-        return success;
+        return ResultFactory.Success(city);
     }
 }
