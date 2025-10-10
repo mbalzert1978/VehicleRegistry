@@ -1,6 +1,6 @@
 using System.Diagnostics;
 using Shared.Kernel;
-using UserManagement.Domain.Validation.Street;
+using UserManagement.Domain.Validation.City;
 
 namespace UserManagement.Domain.ValueObjects.AddressComponents;
 
@@ -14,9 +14,13 @@ public static class StreetFactory
     {
         Street street = new(value);
 
-        rules ??= [new NotEmptyStreetRule(), new MaxLengthStreetRule(MaxLength)];
+        rules ??=
+        [
+            new NotEmptyRule<Street>(s => s.Value),
+            new MaxLengthRule<Street>(s => s.Value, MaxLength),
+        ];
 
-        Debug.Assert(rules.Length >= 2, "At least 2 validation rules must be provided");
+        Debug.Assert(rules.Length > 0, "At least 1 validation rule must be provided");
 
         RuleComposer<Street> composedRule = RuleComposerFactory.Create(rules);
         Result validationResult = composedRule.Validate(street);

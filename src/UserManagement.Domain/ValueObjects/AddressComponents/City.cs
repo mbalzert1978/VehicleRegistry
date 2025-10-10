@@ -14,9 +14,13 @@ public static class CityFactory
     {
         City city = new(value);
 
-        rules ??= [new NotEmptyCityRule(), new MaxLengthCityRule(MaxLength)];
+        rules ??=
+        [
+            new NotEmptyRule<City>(c => c.Value),
+            new MaxLengthRule<City>(c => c.Value, MaxLength),
+        ];
 
-        Debug.Assert(rules.Length >= 2, "At least 2 validation rules must be provided");
+        Debug.Assert(rules.Length > 0, "At least 1 validation rule must be provided");
 
         RuleComposer<City> composedRule = RuleComposerFactory.Create(rules);
         Result validationResult = composedRule.Validate(city);

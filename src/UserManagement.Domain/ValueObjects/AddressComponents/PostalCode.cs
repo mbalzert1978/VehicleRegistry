@@ -1,6 +1,6 @@
 using System.Diagnostics;
 using Shared.Kernel;
-using UserManagement.Domain.Validation.PostalCode;
+using UserManagement.Domain.Validation.City;
 
 namespace UserManagement.Domain.ValueObjects.AddressComponents;
 
@@ -17,9 +17,13 @@ public static class PostalCodeFactory
     {
         PostalCode postalCode = new(value);
 
-        rules ??= [new NotEmptyPostalCodeRule(), new MaxLengthPostalCodeRule(MaxLength)];
+        rules ??=
+        [
+            new NotEmptyRule<PostalCode>(c => c.Value),
+            new MaxLengthRule<PostalCode>(c => c.Value, MaxLength),
+        ];
 
-        Debug.Assert(rules.Length >= 2, "At least 2 validation rules must be provided");
+        Debug.Assert(rules.Length > 0, "At least 1 validation rule must be provided");
 
         RuleComposer<PostalCode> composedRule = RuleComposerFactory.Create(rules);
         Result validationResult = composedRule.Validate(postalCode);

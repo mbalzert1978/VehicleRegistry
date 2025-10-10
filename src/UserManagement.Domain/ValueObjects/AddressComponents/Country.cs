@@ -1,6 +1,6 @@
 using System.Diagnostics;
 using Shared.Kernel;
-using UserManagement.Domain.Validation.Country;
+using UserManagement.Domain.Validation.City;
 
 namespace UserManagement.Domain.ValueObjects.AddressComponents;
 
@@ -14,9 +14,13 @@ public static class CountryFactory
     {
         Country country = new(value);
 
-        rules ??= [new NotEmptyCountryRule(), new MaxLengthCountryRule(MaxLength)];
+        rules ??=
+        [
+            new NotEmptyRule<Country>(c => c.Value),
+            new MaxLengthRule<Country>(c => c.Value, MaxLength),
+        ];
 
-        Debug.Assert(rules.Length >= 2, "At least 2 validation rules must be provided");
+        Debug.Assert(rules.Length > 0, "At least 1 validation rule must be provided");
 
         RuleComposer<Country> composedRule = RuleComposerFactory.Create(rules);
         Result validationResult = composedRule.Validate(country);
