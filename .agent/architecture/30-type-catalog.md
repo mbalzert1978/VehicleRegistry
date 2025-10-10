@@ -3,7 +3,7 @@
 **Document**: Complete Type Reference  
 **Purpose**: AI-Agent reference for all types in the codebase  
 **Status**: ✅ Current Implementation Only  
-**Last Updated**: 2025-10-10
+**Last Updated**: 2025-10-10 (Updated with Generic Validation Rules & Address Components)
 
 ---
 
@@ -41,16 +41,35 @@
 
 | Type | Properties | File | Validation |
 |------|-----------|------|-----------|
-| `Email` | `string Value` | `ValueObjects/Email.cs` | 13 atomic rules via RuleComposer |
+| `Email` | `string Value` | `ValueObjects/Emails/Email.cs` | 13 atomic rules via RuleComposer |
 | `Name` | `string FirstName, string LastName` | `ValueObjects/Name.cs` | Max 100 chars, not empty |
 | `PasswordHash` | `string Value` | `ValueObjects/PasswordHash.cs` | Not empty (stores hashed) |
+| `VerificationToken` | `string Token, DateTimeOffset ExpiresAt` | `ValueObjects/VerificationToken.cs` | Token not empty, ExpiresAt in future |
+| `UserRole` | Discriminated Union (base) | `ValueObjects/UserRole.cs` | Abstract base for role variants |
+| `StandardUser` | Record (extends UserRole) | `ValueObjects/UserRole.cs` | Standard user role |
+| `Admin` | Record (extends UserRole) | `ValueObjects/UserRole.cs` | Administrator role |
 
-#### Validation Rules (Email)
+#### Address Component Value Objects
+
+| Type | Properties | File | Max Length | Error Code |
+|------|-----------|------|-----------|------------|
+| `Street` | `string Value` | `ValueObjects/AddressComponents/Street.cs` | 200 | `STREET.Validation` |
+| `City` | `string Value` | `ValueObjects/AddressComponents/City.cs` | 100 | `CITY.Validation` |
+| `PostalCode` | `string Value` | `ValueObjects/AddressComponents/PostalCode.cs` | 20 | `POSTALCODE.Validation` |
+| `Country` | `string Value` | `ValueObjects/AddressComponents/Country.cs` | 100 | `COUNTRY.Validation` |
+
+#### Generic Validation Rules
+
+| Rule | Type Parameter | Constructor Parameters | File | Purpose |
+|------|---------------|----------------------|------|---------|
+| `NotEmptyRule<TValue>` | `where TValue : class` | `Func<TValue, string> selector` | `Validation/Common/NotEmptyRule.cs` | Validates string property not empty |
+| `MaxLengthRule<TValue>` | `where TValue : class` | `Func<TValue, string> selector, int maxLength` | `Validation/Common/MaxLengthRule.cs` | Validates string property max length |
+
+#### Validation Rules (Email-Specific)
 
 | Rule | File | Validates |
 |------|------|-----------|
-| `EmailValidationRuleBase` | `Validation/Email/EmailValidationRuleBase.cs` | Abstract base with template method |
-| `EmailNotEmptyRule` | `Validation/Email/EmailNotEmptyRule.cs` | Not null/whitespace |
+| `EmailValidationRuleBase` | `Validation/Email/EmailValidationRuleBase.cs` | Abstract base, implements `IValidationRule<Email>` |
 | `ExactlyOneAtSymbolRule` | `Validation/Email/ExactlyOneAtSymbolRule.cs` | Exactly one @ symbol |
 | `DomainNotEmptyRule` | `Validation/Email/DomainNotEmptyRule.cs` | Domain part not empty |
 | `LocalPartMaxLengthRule` | `Validation/Email/LocalPartMaxLengthRule.cs` | Local ≤ 64 chars (RFC 5321) |
@@ -66,11 +85,17 @@
 
 #### Factories
 
-| Factory | Creates | File | Returns |
-|---------|---------|------|---------|
-| `EmailFactory` | `Email` | `ValueObjects/Email.cs` | `Result<Email>` |
-| `NameFactory` | `Name` | `ValueObjects/Name.cs` | `Result<Name>` |
-| `PasswordHashFactory` | `PasswordHash` | `ValueObjects/PasswordHash.cs` | `Result<PasswordHash>` |
+| Factory | Creates | File | Returns | Validation |
+|---------|---------|------|---------|------------|
+| `EmailFactory` | `Email` | `ValueObjects/Emails/Email.cs` | `Result<Email>` | 13 email rules (optional parameter) |
+| `NameFactory` | `Name` | `ValueObjects/Name.cs` | `Result<Name>` | Max 100 chars, not empty |
+| `PasswordHashFactory` | `PasswordHash` | `ValueObjects/PasswordHash.cs` | `Result<PasswordHash>` | Not empty |
+| `VerificationTokenFactory` | `VerificationToken` | `ValueObjects/VerificationToken.cs` | `Result<VerificationToken>` | Token not empty, ExpiresAt > now |
+| `UserRoleFactory` | `UserRole` | `ValueObjects/UserRole.cs` | `UserRole` | Type-safe role creation |
+| `StreetFactory` | `Street` | `ValueObjects/AddressComponents/Street.cs` | `Result<Street>` | NotEmpty + MaxLength(200) |
+| `CityFactory` | `City` | `ValueObjects/AddressComponents/City.cs` | `Result<City>` | NotEmpty + MaxLength(100) |
+| `PostalCodeFactory` | `PostalCode` | `ValueObjects/AddressComponents/PostalCode.cs` | `Result<PostalCode>` | NotEmpty + MaxLength(20) |
+| `CountryFactory` | `Country` | `ValueObjects/AddressComponents/Country.cs` | `Result<Country>` | NotEmpty + MaxLength(100) |
 
 ---
 
@@ -237,6 +262,7 @@ public sealed class ExactlyOneAtSymbolRule : EmailValidationRuleBase { }
 ### By Mutability
 
 **Immutable** (Records):
+
 - All Value Objects (Email, Name, PasswordHash)
 - All Strongly-Typed IDs (UserId, UserProfileId, AddressId)
 - All Result types (Result, Success, Failure, Result<T>, Success<T>, Failure<T>)
@@ -244,6 +270,7 @@ public sealed class ExactlyOneAtSymbolRule : EmailValidationRuleBase { }
 - RuleComposer<T>
 
 **Abstract**:
+
 - Result
 - Result<T>
 - StronglyTypedId<T>
@@ -252,6 +279,7 @@ public sealed class ExactlyOneAtSymbolRule : EmailValidationRuleBase { }
 ### By Layer
 
 **Shared Kernel** (7 types + 2 factories):
+
 - Result types (6)
 - Error (1)
 - Interfaces (2)
@@ -259,6 +287,7 @@ public sealed class ExactlyOneAtSymbolRule : EmailValidationRuleBase { }
 - Factories (2)
 
 **Domain** (3 value objects + 3 IDs + 13 validation rules + 3 factories):
+
 - Value Objects (3)
 - Strongly-Typed IDs (3)
 - Validation Rules (13 + 1 base)
@@ -267,21 +296,25 @@ public sealed class ExactlyOneAtSymbolRule : EmailValidationRuleBase { }
 ### By Purpose
 
 **Error Handling**:
+
 - Result, Success, Failure
 - Result<T>, Success<T>, Failure<T>
 - Error
 
 **Validation**:
+
 - IValidationRule<T>
 - RuleComposer<T>
 - EmailValidationRuleBase
 - 13 Email validation rules
 
 **Domain Model**:
+
 - Email, Name, PasswordHash (Value Objects)
 - UserId, UserProfileId, AddressId (Strongly-Typed IDs)
 
 **Object Creation**:
+
 - EmailFactory, NameFactory, PasswordHashFactory
 - ResultFactory, ErrorFactory
 
@@ -334,7 +367,7 @@ Result validationResult = rules.Validate(input);
 
 ### Shared Kernel
 
-```
+```bash
 src/Shared.Kernel/
 ├── Abstractions/
 │   ├── IRequestHandler.cs
@@ -351,7 +384,7 @@ src/Shared.Kernel/
 
 ### UserManagement Domain
 
-```
+```bash
 src/UserManagement.Domain/
 ├── ValueObjects/
 │   ├── AddressId.cs

@@ -2,12 +2,25 @@
 
 **Purpose**: AI-Agent-optimized technical documentation of the VehicleRegistry codebase architecture.
 
-**Last Updated**: 2025-10-10  
-**Status**: Partial Implementation (UserManagement Domain Layer Complete)
+**Last Updated**: 2025-10-10 (Updated with Generic Validation Rules Pattern)  
+**Status**: Partial Implementation (UserManagement Domain Layer Complete + Generic Validation Rules)
 
 ---
 
-## 📚 Documentation Structure
+## 🎯 Recent Updates
+
+**2025-10-10: Generic Validation Rules Pattern**
+
+- ✅ Implemented reusable generic validation rules (`NotEmptyRule<T>`, `MaxLengthRule<T>`)
+- ✅ Refactored Address Components to use generic rules (eliminated ~80 lines of duplicate code)
+- ✅ Refactored Email value object to use `IValidationRule<Email>` (namespace changed to `Emails`)
+- ✅ All 144 tests passing
+- � See [generic-validation-rules.md](./generic-validation-rules.md) for complete pattern documentation
+- 📖 See [UPDATES-2025-10-10.md](./UPDATES-2025-10-10.md) for detailed changelog
+
+---
+
+## �📚 Documentation Structure
 
 This directory contains comprehensive architectural documentation organized for optimal LLM consumption:
 
@@ -29,23 +42,26 @@ This directory contains comprehensive architectural documentation organized for 
 ### Patterns & Practices
 
 1. **[20-validation-patterns.md](./20-validation-patterns.md)** - Atomic validation rules and composition
-2. **[21-factory-patterns.md](./21-factory-patterns.md)** - Factory methods and object creation
-3. **[22-nasa-rules.md](./22-nasa-rules.md)** - NASA safety rules implementation
-4. **[23-testing-strategy.md](./23-testing-strategy.md)** - TDD approach and test patterns
+2. **[generic-validation-rules.md](./generic-validation-rules.md)** - **NEW:** Generic reusable validation rules pattern
+3. **[21-factory-patterns.md](./21-factory-patterns.md)** - Factory methods and object creation
+4. **[22-nasa-rules.md](./22-nasa-rules.md)** - NASA safety rules implementation
+5. **[23-testing-strategy.md](./23-testing-strategy.md)** - TDD approach and test patterns
 
 ### Reference
 
-1. **[30-type-catalog.md](./30-type-catalog.md)** - Complete catalog of types and their relationships
+1. **[30-type-catalog.md](./30-type-catalog.md)** - Complete catalog of types and their relationships (updated)
 2. **[31-code-examples.md](./31-code-examples.md)** - Concrete implementation examples
 3. **[32-decision-log.md](./32-decision-log.md)** - Architectural decision records
+4. **[UPDATES-2025-10-10.md](./UPDATES-2025-10-10.md)** - **NEW:** Recent architecture updates
 
 ### Task Documentation
 
 Detailed implementation documentation for specific tasks:
 
-- [2.16-2.17-userrole.md](tasks/2.16-2.17-userrole.md) - UserRole discriminated union implementation
-- [2.18-2.19-verificationtoken.md](tasks/2.18-2.19-verificationtoken.md) - VerificationToken value object with TimeProvider
-- [2.20-2.21-address-components.md](tasks/2.20-2.21-address-components.md) - Address component value objects (Street, City, PostalCode, Country)
+- **[2.16-2.17-userrole.md](tasks/2.16-2.17-userrole.md)** - UserRole discriminated union implementation
+- **[2.18-2.19-verificationtoken.md](tasks/2.18-2.19-verificationtoken.md)** - VerificationToken value object with TimeProvider
+- **[2.20-2.21-address-components.md](tasks/2.20-2.21-address-components.md)** - Address component value objects (initial implementation)
+- **[2.20-2.21-address-components-REFACTORED.md](tasks/2.20-2.21-address-components-REFACTORED.md)** - **NEW:** Address components refactored with generic validation rules
 
 ---
 
