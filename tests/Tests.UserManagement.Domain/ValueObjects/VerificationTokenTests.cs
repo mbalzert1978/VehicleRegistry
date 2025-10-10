@@ -10,13 +10,16 @@ public sealed class VerificationTokenTests
     private static readonly DateTimeOffset ExpiresAt = FixedTime.AddHours(1);
     private readonly FakeTimeProvider _timeProvider = new(FixedTime);
 
-
     [Fact]
     public void Create_WithValidTokenAndExpiration_ShouldSucceed()
     {
         string token = Guid.NewGuid().ToString();
 
-        Result<VerificationToken> result = VerificationTokenFactory.Create(token, ExpiresAt, _timeProvider);
+        Result<VerificationToken> result = VerificationTokenFactory.Create(
+            token,
+            ExpiresAt,
+            _timeProvider
+        );
 
         result.IsSuccess.Should().BeTrue();
         result.Value.Token.Should().Be(token);
@@ -28,7 +31,11 @@ public sealed class VerificationTokenTests
     {
         string token = string.Empty;
 
-        Result<VerificationToken> result = VerificationTokenFactory.Create(token, ExpiresAt, _timeProvider);
+        Result<VerificationToken> result = VerificationTokenFactory.Create(
+            token,
+            ExpiresAt,
+            _timeProvider
+        );
 
         result.IsFailure.Should().BeTrue();
 
@@ -47,7 +54,11 @@ public sealed class VerificationTokenTests
     {
         string token = "   ";
 
-        Result<VerificationToken> result = VerificationTokenFactory.Create(token, ExpiresAt, _timeProvider);
+        Result<VerificationToken> result = VerificationTokenFactory.Create(
+            token,
+            ExpiresAt,
+            _timeProvider
+        );
 
         result.IsFailure.Should().BeTrue();
 
@@ -67,7 +78,11 @@ public sealed class VerificationTokenTests
         string token = Guid.NewGuid().ToString();
         DateTimeOffset expiresAt = FixedTime.AddHours(-1);
 
-        Result<VerificationToken> result = VerificationTokenFactory.Create(token, expiresAt, _timeProvider);
+        Result<VerificationToken> result = VerificationTokenFactory.Create(
+            token,
+            expiresAt,
+            _timeProvider
+        );
 
         result.IsFailure.Should().BeTrue();
 
@@ -86,7 +101,11 @@ public sealed class VerificationTokenTests
     {
         string token = Guid.NewGuid().ToString();
 
-        Result<VerificationToken> result = VerificationTokenFactory.Create(token, ExpiresAt, _timeProvider);
+        Result<VerificationToken> result = VerificationTokenFactory.Create(
+            token,
+            ExpiresAt,
+            _timeProvider
+        );
 
         result.Value.IsExpired(_timeProvider).Should().BeFalse();
     }
@@ -96,7 +115,11 @@ public sealed class VerificationTokenTests
     {
         string token = Guid.NewGuid().ToString();
 
-        Result<VerificationToken> result = VerificationTokenFactory.Create(token, ExpiresAt, _timeProvider);
+        Result<VerificationToken> result = VerificationTokenFactory.Create(
+            token,
+            ExpiresAt,
+            _timeProvider
+        );
 
         _timeProvider.Advance(TimeSpan.FromHours(2));
 
@@ -108,7 +131,11 @@ public sealed class VerificationTokenTests
     {
         string? token = null;
 
-        Result<VerificationToken> result = VerificationTokenFactory.Create(token!, ExpiresAt, _timeProvider);
+        Result<VerificationToken> result = VerificationTokenFactory.Create(
+            token!,
+            ExpiresAt,
+            _timeProvider
+        );
 
         result.IsFailure.Should().BeTrue();
 
@@ -127,8 +154,16 @@ public sealed class VerificationTokenTests
     {
         string token = Guid.NewGuid().ToString();
 
-        Result<VerificationToken> result1 = VerificationTokenFactory.Create(token, ExpiresAt, _timeProvider);
-        Result<VerificationToken> result2 = VerificationTokenFactory.Create(token, ExpiresAt, _timeProvider);
+        Result<VerificationToken> result1 = VerificationTokenFactory.Create(
+            token,
+            ExpiresAt,
+            _timeProvider
+        );
+        Result<VerificationToken> result2 = VerificationTokenFactory.Create(
+            token,
+            ExpiresAt,
+            _timeProvider
+        );
 
         result1.Value.Should().Be(result2.Value);
     }
@@ -139,8 +174,16 @@ public sealed class VerificationTokenTests
         string token1 = Guid.NewGuid().ToString();
         string token2 = Guid.NewGuid().ToString();
 
-        Result<VerificationToken> result1 = VerificationTokenFactory.Create(token1, ExpiresAt, _timeProvider);
-        Result<VerificationToken> result2 = VerificationTokenFactory.Create(token2, ExpiresAt, _timeProvider);
+        Result<VerificationToken> result1 = VerificationTokenFactory.Create(
+            token1,
+            ExpiresAt,
+            _timeProvider
+        );
+        Result<VerificationToken> result2 = VerificationTokenFactory.Create(
+            token2,
+            ExpiresAt,
+            _timeProvider
+        );
 
         result1.Value.Should().NotBe(result2.Value);
     }
@@ -152,8 +195,16 @@ public sealed class VerificationTokenTests
         DateTimeOffset expiresAt1 = FixedTime.AddHours(24);
         DateTimeOffset expiresAt2 = FixedTime.AddHours(48);
 
-        Result<VerificationToken> result1 = VerificationTokenFactory.Create(token, expiresAt1, _timeProvider);
-        Result<VerificationToken> result2 = VerificationTokenFactory.Create(token, expiresAt2, _timeProvider);
+        Result<VerificationToken> result1 = VerificationTokenFactory.Create(
+            token,
+            expiresAt1,
+            _timeProvider
+        );
+        Result<VerificationToken> result2 = VerificationTokenFactory.Create(
+            token,
+            expiresAt2,
+            _timeProvider
+        );
 
         result1.Value.Should().NotBe(result2.Value);
     }
@@ -163,7 +214,11 @@ public sealed class VerificationTokenTests
     {
         string token = Guid.NewGuid().ToString();
 
-        Result<VerificationToken> result = VerificationTokenFactory.Create(token, ExpiresAt, _timeProvider);
+        Result<VerificationToken> result = VerificationTokenFactory.Create(
+            token,
+            ExpiresAt,
+            _timeProvider
+        );
 
         VerificationToken verificationToken = result.Value;
         verificationToken.Token.Should().Be(token);
@@ -175,7 +230,11 @@ public sealed class VerificationTokenTests
     {
         string token = new string('a', 500);
 
-        Result<VerificationToken> result = VerificationTokenFactory.Create(token, ExpiresAt, _timeProvider);
+        Result<VerificationToken> result = VerificationTokenFactory.Create(
+            token,
+            ExpiresAt,
+            _timeProvider
+        );
 
         result.IsSuccess.Should().BeTrue();
         result.Value.Token.Should().HaveLength(500);

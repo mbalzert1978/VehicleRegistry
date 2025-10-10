@@ -63,10 +63,7 @@ public sealed class EmailTests
     public void Email_WhenCreatedWithMultipleValidRules_ShouldReturnSuccess()
     {
         const string validEmail = "test@example.com";
-        IValidationRule<string>[] rules =
-        [
-            new AlwaysValidRule(),
-        ];
+        IValidationRule<string>[] rules = [new AlwaysValidRule()];
 
         Result<Email> result = EmailFactory.Create(validEmail, rules);
 
@@ -78,11 +75,7 @@ public sealed class EmailTests
     public void Email_WhenCreatedWithOneInvalidRule_ShouldReturnFailure()
     {
         const string email = "test@example.com";
-        IValidationRule<string>[] rules =
-        [
-            new AlwaysValidRule(),
-            new AlwaysInvalidRule(),
-        ];
+        IValidationRule<string>[] rules = [new AlwaysValidRule(), new AlwaysInvalidRule()];
 
         Result<Email> result = EmailFactory.Create(email, rules);
 

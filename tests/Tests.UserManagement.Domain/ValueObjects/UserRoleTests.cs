@@ -77,7 +77,7 @@ public sealed class UserRoleTests
         {
             StandardUser => "StandardUser",
             Admin => "Admin",
-            _ => throw new InvalidOperationException("Unknown role")
+            _ => throw new InvalidOperationException("Unknown role"),
         };
 
         result.Should().Be("StandardUser");
@@ -92,7 +92,7 @@ public sealed class UserRoleTests
         {
             StandardUser => "StandardUser",
             Admin => "Admin",
-            _ => throw new InvalidOperationException("Unknown role")
+            _ => throw new InvalidOperationException("Unknown role"),
         };
 
         result.Should().Be("Admin");

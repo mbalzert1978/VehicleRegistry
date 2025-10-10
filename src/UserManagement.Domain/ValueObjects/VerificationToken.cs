@@ -10,14 +10,15 @@ public sealed record VerificationToken(string Token, DateTimeOffset ExpiresAt)
 
 public static class VerificationTokenFactory
 {
-    public static Result<VerificationToken> Create(string token, DateTimeOffset expiresAt, TimeProvider timeProvider)
+    public static Result<VerificationToken> Create(
+        string token,
+        DateTimeOffset expiresAt,
+        TimeProvider timeProvider
+    )
     {
         if (string.IsNullOrWhiteSpace(token))
         {
-            return CreateError(
-                nameof(VerificationToken.Token),
-                "Token cannot be empty"
-            );
+            return CreateError(nameof(VerificationToken.Token), "Token cannot be empty");
         }
 
         DateTimeOffset now = timeProvider.GetUtcNow();
@@ -31,12 +32,21 @@ public static class VerificationTokenFactory
 
         var verificationToken = new VerificationToken(token, expiresAt);
 
-        Debug.Assert(!string.IsNullOrWhiteSpace(verificationToken.Token), "Token must not be empty after creation");
-        Debug.Assert(verificationToken.ExpiresAt > timeProvider.GetUtcNow(), "ExpiresAt must be in the future after creation");
+        Debug.Assert(
+            !string.IsNullOrWhiteSpace(verificationToken.Token),
+            "Token must not be empty after creation"
+        );
+        Debug.Assert(
+            verificationToken.ExpiresAt > timeProvider.GetUtcNow(),
+            "ExpiresAt must be in the future after creation"
+        );
 
         Result<VerificationToken> success = ResultFactory.Success(verificationToken);
         Debug.Assert(success.IsSuccess, "Result should be a success");
-        Debug.Assert(success.Value == verificationToken, "Result value should be the created verification token");
+        Debug.Assert(
+            success.Value == verificationToken,
+            "Result value should be the created verification token"
+        );
 
         return success;
     }

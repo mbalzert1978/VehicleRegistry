@@ -162,8 +162,8 @@
 - [x] 2.17 Implement `UserRole` record with static instances (User, Admin)
 - [x] 2.18 Write failing tests for `VerificationToken` value object with expiration (TDD)
 - [x] 2.19 Implement `VerificationToken` record with `Token`, `ExpiresAt` properties
-- [ ] 2.20 Write failing tests for Address component value objects (Street, City, PostalCode, Country) (TDD)
-- [ ] 2.21 Implement Address component value objects with factories
+- [x] 2.20 Write failing tests for Address component value objects (Street, City, PostalCode, Country) (TDD)
+- [x] 2.21 Implement Address component value objects with factories
 - [ ] 2.22 Write failing tests for `EmailVerificationStatus` discriminated union (TDD)
 - [ ] 2.23 Implement `EmailVerificationStatus` abstract record with NotVerified, Verified, Expired variants
 - [ ] 2.24 Implement `EmailVerificationStatusFactory` with factory methods for each variant

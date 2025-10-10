@@ -45,6 +45,7 @@ Detailed implementation documentation for specific tasks:
 
 - [2.16-2.17-userrole.md](tasks/2.16-2.17-userrole.md) - UserRole discriminated union implementation
 - [2.18-2.19-verificationtoken.md](tasks/2.18-2.19-verificationtoken.md) - VerificationToken value object with TimeProvider
+- [2.20-2.21-address-components.md](tasks/2.20-2.21-address-components.md) - Address component value objects (Street, City, PostalCode, Country)
 
 ---
 
@@ -134,10 +135,11 @@ This documentation is updated as the codebase evolves:
   - Shared Kernel complete
   - UserManagement Domain complete
   - Email validation rules (13 rules)
-  - Value objects: Email, Name, PasswordHash, UserRole, VerificationToken
+  - Value objects: Email, Name, PasswordHash, UserRole, VerificationToken, AddressComponents (Street, City, PostalCode, Country)
   - Strongly-typed IDs: UserId, UserProfileId, AddressId
   - UserRole as discriminated union (StandardUser, Admin)
   - VerificationToken with TimeProvider dependency injection
+  - Address components with international support
 
 ---
 
