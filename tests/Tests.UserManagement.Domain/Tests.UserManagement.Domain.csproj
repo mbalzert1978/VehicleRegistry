@@ -11,6 +11,7 @@
     <PackageReference Include="xunit.v3" />
     <PackageReference Include="xunit.runner.visualstudio" />
     <PackageReference Include="AwesomeAssertions" />
+    <PackageReference Include="Microsoft.Extensions.TimeProvider.Testing" />
     <ProjectReference Include="..\..\src\Shared.Kernel\Shared.Kernel.csproj" />
     <ProjectReference Include="..\..\src\UserManagement.Domain\UserManagement.Domain.csproj" />
   </ItemGroup>
