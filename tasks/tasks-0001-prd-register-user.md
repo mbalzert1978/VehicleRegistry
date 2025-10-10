@@ -158,8 +158,8 @@
 - [x] 2.13 Implement `Name` record with validation in `NameFactory.Create()`
 - [x] 2.14 Write failing tests for `PasswordHash` value object (TDD)
 - [x] 2.15 Implement `PasswordHash` record with factory method (no plain-text storage)
-- [ ] 2.16 Write failing tests for `UserRole` value object with predefined values (TDD)
-- [ ] 2.17 Implement `UserRole` record with static instances (User, Admin)
+- [x] 2.16 Write failing tests for `UserRole` value object with predefined values (TDD)
+- [x] 2.17 Implement `UserRole` record with static instances (User, Admin)
 - [ ] 2.18 Write failing tests for `VerificationToken` value object with expiration (TDD)
 - [ ] 2.19 Implement `VerificationToken` record with `Token`, `ExpiresAt` properties
 - [ ] 2.20 Write failing tests for Address component value objects (Street, City, PostalCode, Country) (TDD)
