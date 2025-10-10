@@ -1,5 +1,5 @@
 using Shared.Kernel;
-using UserManagement.Domain.Validation.City;
+using UserManagement.Domain.Validation.Common;
 using UserManagement.Domain.Validation.Emails;
 using UserManagement.Domain.ValueObjects;
 using UserManagement.Domain.ValueObjects.Emails;
@@ -68,7 +68,7 @@ public sealed class EmailTests
         const string validEmail = "test@example.com";
         IValidationRule<Email>[] rules =
         [
-            new NotEmptyRule<Email>(e => e.Value),
+            new StringNotEmptyRule<Email>(e => e.Value),
             new DomainNotEmptyRule(),
         ];
 

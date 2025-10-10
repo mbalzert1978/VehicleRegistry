@@ -27,16 +27,16 @@ classDiagram
         +Validate(TValue) Result
     }
     
-    class NotEmptyRule~TValue~ {
+    class StringNotEmptyRule~TValue~ {
         -Func~TValue,string~ selector
-        +NotEmptyRule(selector)
+        +StringNotEmptyRule(selector)
         +Validate(TValue) Result
     }
     
-    class MaxLengthRule~TValue~ {
+    class StringMaxLengthRule~TValue~ {
         -Func~TValue,string~ selector
         -int maxLength
-        +MaxLengthRule(selector, maxLength)
+        +StringMaxLengthRule(selector, maxLength)
         +Validate(TValue) Result
     }
     
@@ -50,24 +50,24 @@ classDiagram
         +Create(string, rules?) Result~Street~
     }
     
-    IValidationRule~TValue~ <|.. NotEmptyRule~TValue~
-    IValidationRule~TValue~ <|.. MaxLengthRule~TValue~
+    IValidationRule~TValue~ <|.. StringNotEmptyRule~TValue~
+    IValidationRule~TValue~ <|.. StringMaxLengthRule~TValue~
     
-    StreetFactory ..> NotEmptyRule~TValue~ : uses
-    StreetFactory ..> MaxLengthRule~TValue~ : uses
+    StreetFactory ..> StringNotEmptyRule~TValue~ : uses
+    StreetFactory ..> StringMaxLengthRule~TValue~ : uses
     StreetFactory ..> Street : creates
     
-    note for NotEmptyRule~TValue~ "typeof(TValue).Name\nfor error messages"
-    note for MaxLengthRule~TValue~ "Configurable\nmax length"
+    note for StringNotEmptyRule~TValue~ "typeof(TValue).Name\nfor error messages"
+    note for StringMaxLengthRule~TValue~ "Configurable\nmax length"
 ```
 
 ---
 
 ## Rules
 
-### 1. NotEmptyRule&lt;TValue&gt;
+### 1. StringNotEmptyRule&lt;TValue&gt;
 
-**File:** `src/UserManagement.Domain/Validation/Common/NotEmptyRule.cs`
+**File:** `src/UserManagement.Domain/Validation/Common/StringNotEmptyRule.cs`
 
 **Purpose:** Validates that a string property is not null, empty, or whitespace
 
@@ -78,7 +78,7 @@ using Shared.Kernel;
 
 namespace UserManagement.Domain.Validation.Common;
 
-public sealed class NotEmptyRule<TValue>(Func<TValue, string> selector) 
+public sealed class StringNotEmptyRule<TValue>(Func<TValue, string> selector) 
     : IValidationRule<TValue>
     where TValue : class
 {
@@ -110,17 +110,17 @@ public sealed class NotEmptyRule<TValue>(Func<TValue, string> selector)
 
 ```csharp
 // Street value object
-var rule = new NotEmptyRule<Street>(s => s.Value);
+var rule = new StringNotEmptyRule<Street>(s => s.Value);
 Result result = rule.Validate(new Street("Main St")); // Success
 Result result = rule.Validate(new Street("")); // Failure: "Street cannot be empty"
 
 // City value object
-var rule = new NotEmptyRule<City>(c => c.Value);
+var rule = new StringNotEmptyRule<City>(c => c.Value);
 Result result = rule.Validate(new City("New York")); // Success
 Result result = rule.Validate(new City("   ")); // Failure: "City cannot be empty"
 
 // Email value object
-var rule = new NotEmptyRule<Email>(e => e.Value);
+var rule = new StringNotEmptyRule<Email>(e => e.Value);
 Result result = rule.Validate(new Email("test@example.com")); // Success
 ```
 
@@ -131,9 +131,9 @@ Result result = rule.Validate(new Email("test@example.com")); // Success
 
 ---
 
-### 2. MaxLengthRule&lt;TValue&gt;
+### 2. StringMaxLengthRule&lt;TValue&gt;
 
-**File:** `src/UserManagement.Domain/Validation/Common/MaxLengthRule.cs`
+**File:** `src/UserManagement.Domain/Validation/Common/StringMaxLengthRule.cs`
 
 **Purpose:** Validates that a string property does not exceed maximum length
 
@@ -144,7 +144,7 @@ using Shared.Kernel;
 
 namespace UserManagement.Domain.Validation.Common;
 
-public sealed class MaxLengthRule<TValue>(
+public sealed class StringMaxLengthRule<TValue>(
     Func<TValue, string> selector,
     int maxLength) 
     : IValidationRule<TValue>
@@ -178,16 +178,16 @@ public sealed class MaxLengthRule<TValue>(
 
 ```csharp
 // Street (max 200 characters)
-var rule = new MaxLengthRule<Street>(s => s.Value, 200);
+var rule = new StringMaxLengthRule<Street>(s => s.Value, 200);
 Result result = rule.Validate(new Street(new string('a', 200))); // Success
 Result result = rule.Validate(new Street(new string('a', 201))); // Failure
 
 // City (max 100 characters)
-var rule = new MaxLengthRule<City>(c => c.Value, 100);
+var rule = new StringMaxLengthRule<City>(c => c.Value, 100);
 Result result = rule.Validate(new City("New York")); // Success
 
 // PostalCode (max 20 characters)
-var rule = new MaxLengthRule<PostalCode>(p => p.Value, 20);
+var rule = new StringMaxLengthRule<PostalCode>(p => p.Value, 20);
 Result result = rule.Validate(new PostalCode("SW1A 1AA")); // Success
 ```
 
@@ -198,7 +198,7 @@ Result result = rule.Validate(new PostalCode("SW1A 1AA")); // Success
 
 **Special Behavior:**
 
-- Empty strings are **allowed** (validated by `NotEmptyRule`)
+- Empty strings are **allowed** (validated by `StringNotEmptyRule`)
 - Only checks length, not content format
 
 ---
@@ -219,8 +219,8 @@ public static class StreetFactory
 
         // 2. Provide default rules if none supplied
         rules ??= [
-            new NotEmptyRule<Street>(s => s.Value),
-            new MaxLengthRule<Street>(s => s.Value, MaxLength)
+            new StringNotEmptyRule<Street>(s => s.Value),
+            new StringMaxLengthRule<Street>(s => s.Value, MaxLength)
         ];
 
         // 3. Assert rules provided
@@ -297,8 +297,8 @@ private static Result<Street> CreateError(string propertyName, string message)
 
 ```csharp
 rules ??= [
-    new NotEmptyRule<Street>(s => s.Value),
-    new MaxLengthRule<Street>(s => s.Value, MaxLength)
+    new StringNotEmptyRule<Street>(s => s.Value),
+    new StringMaxLengthRule<Street>(s => s.Value, MaxLength)
 ];
 ```
 
@@ -309,11 +309,11 @@ rules ??= [
 ```csharp
 // ✅ Type-safe: Cannot mix value object types
 IValidationRule<Street>[] streetRules = [
-    new NotEmptyRule<Street>(s => s.Value)
+    new StringNotEmptyRule<Street>(s => s.Value)
 ];
 
 IValidationRule<City>[] cityRules = [
-    new NotEmptyRule<City>(c => c.Value)
+    new StringNotEmptyRule<City>(c => c.Value)
 ];
 
 // ❌ Compile error: Cannot assign Street rule to City
@@ -329,7 +329,7 @@ cityRules[0] = streetRules[0]; // CS0029: Cannot convert
 public void Validate_WithEmptyValue_ShouldFail()
 {
     // Arrange
-    var rule = new NotEmptyRule<Street>(s => s.Value);
+    var rule = new StringNotEmptyRule<Street>(s => s.Value);
     var street = new Street("");
 
     // Act
@@ -378,8 +378,8 @@ public static class CompanyNameFactory
         CompanyName company = new(value);
 
         rules ??= [
-            new NotEmptyRule<CompanyName>(c => c.Value),
-            new MaxLengthRule<CompanyName>(c => c.Value, 150)
+            new StringNotEmptyRule<CompanyName>(c => c.Value),
+            new StringMaxLengthRule<CompanyName>(c => c.Value, 150)
         ];
 
         // Same pattern as Street/City/etc.
@@ -417,9 +417,9 @@ public sealed class MinLengthRule<TValue>(
 
 // Usage
 rules = [
-    new NotEmptyRule<Street>(s => s.Value),
+    new StringNotEmptyRule<Street>(s => s.Value),
     new MinLengthRule<Street>(s => s.Value, 5),  // New rule
-    new MaxLengthRule<Street>(s => s.Value, 200)
+    new StringMaxLengthRule<Street>(s => s.Value, 200)
 ];
 ```
 
@@ -445,7 +445,7 @@ All rules use same error format:
 **Problem with nameof():**
 
 ```csharp
-public sealed class NotEmptyRule<TValue> : IValidationRule<TValue>
+public sealed class StringNotEmptyRule<TValue> : IValidationRule<TValue>
 {
     public Result Validate(TValue value)
     {
@@ -462,7 +462,7 @@ public sealed class NotEmptyRule<TValue> : IValidationRule<TValue>
 **Solution with typeof().Name:**
 
 ```csharp
-public sealed class NotEmptyRule<TValue> : IValidationRule<TValue>
+public sealed class StringNotEmptyRule<TValue> : IValidationRule<TValue>
 {
     public Result Validate(TValue value)
     {
@@ -488,11 +488,11 @@ public sealed class NotEmptyRule<TValue> : IValidationRule<TValue>
 
 ```csharp
 // ❌ Slower, less type-safe
-public sealed class NotEmptyRule<TValue> : IValidationRule<TValue>
+public sealed class StringNotEmptyRule<TValue> : IValidationRule<TValue>
 {
     private readonly string propertyName;
 
-    public NotEmptyRule(string propertyName)
+    public StringNotEmptyRule(string propertyName)
     {
         this.propertyName = propertyName;
     }
@@ -510,7 +510,7 @@ public sealed class NotEmptyRule<TValue> : IValidationRule<TValue>
 
 ```csharp
 // ✅ Faster, type-safe, compile-time checked
-public sealed class NotEmptyRule<TValue>(Func<TValue, string> selector) 
+public sealed class StringNotEmptyRule<TValue>(Func<TValue, string> selector) 
     : IValidationRule<TValue>
 {
     public Result Validate(TValue value)
@@ -551,8 +551,8 @@ public static Result<Street> Create(string value, IValidationRule<Street>[] rule
 
 // Usage
 var result = StreetFactory.Create("Main St", [
-    new NotEmptyRule<Street>(s => s.Value),
-    new MaxLengthRule<Street>(s => s.Value, 200)
+    new StringNotEmptyRule<Street>(s => s.Value),
+    new StringMaxLengthRule<Street>(s => s.Value, 200)
 ]); // Too verbose!
 ```
 
@@ -595,14 +595,14 @@ var result = StreetFactory.Create("", [new AlwaysValidRule()]);
 
 **Location:** `tests/Tests.UserManagement.Domain/Validation/Common/`
 
-#### NotEmptyRuleTests (4 tests)
+#### StringNotEmptyRuleTests (4 tests)
 
 1. ✅ `Validate_WithNonEmptyValue_ShouldSucceed`
 2. ✅ `Validate_WithEmptyValue_ShouldFail`
 3. ✅ `Validate_WithWhitespaceValue_ShouldFail`
 4. ✅ `Validate_WithNullValue_ShouldFail`
 
-#### MaxLengthRuleTests (4 tests)
+#### StringMaxLengthRuleTests (4 tests)
 
 1. ✅ `Validate_WithinMaxLength_ShouldSucceed`
 2. ✅ `Validate_AtExactMaxLength_ShouldSucceed`
@@ -701,7 +701,7 @@ Generic validation rules provide:
 **Key Pattern:**
 
 ```csharp
-var rule = new NotEmptyRule<ValueObject>(vo => vo.Property);
+var rule = new StringNotEmptyRule<ValueObject>(vo => vo.Property);
 ```
 
 This combines:

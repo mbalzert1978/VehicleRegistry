@@ -1,6 +1,6 @@
 using System.Diagnostics;
 using Shared.Kernel;
-using UserManagement.Domain.Validation.City;
+using UserManagement.Domain.Validation.Common;
 using UserManagement.Domain.Validation.Emails;
 
 namespace UserManagement.Domain.ValueObjects.Emails;
@@ -15,7 +15,7 @@ public static class EmailFactory
 
         rules ??=
         [
-            new NotEmptyRule<Email>(e => e.Value),
+            new StringNotEmptyRule<Email>(e => e.Value),
             new ExactlyOneAtSymbolRule(),
             new NoWhitespaceRule(),
             new NoNewlineCharactersRule(),

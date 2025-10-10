@@ -1,6 +1,6 @@
 using AwesomeAssertions;
 using Shared.Kernel;
-using UserManagement.Domain.Validation.City;
+using UserManagement.Domain.Validation.Common;
 using UserManagement.Domain.Validation.Emails;
 using UserManagement.Domain.ValueObjects.Emails;
 
@@ -49,7 +49,7 @@ public sealed class EmailValidationRulesTests
     {
         IValidationRule<Email>[] rules =
         [
-            new NotEmptyRule<Email>(e => e.Value),
+            new StringNotEmptyRule<Email>(e => e.Value),
             new ExactlyOneAtSymbolRule(),
             new DomainNotEmptyRule(),
             new LocalPartMaxLengthRule(),

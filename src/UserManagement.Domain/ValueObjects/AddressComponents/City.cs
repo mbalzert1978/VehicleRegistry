@@ -1,6 +1,6 @@
 using System.Diagnostics;
 using Shared.Kernel;
-using UserManagement.Domain.Validation.City;
+using UserManagement.Domain.Validation.Common;
 
 namespace UserManagement.Domain.ValueObjects.AddressComponents;
 
@@ -16,8 +16,8 @@ public static class CityFactory
 
         rules ??=
         [
-            new NotEmptyRule<City>(c => c.Value),
-            new MaxLengthRule<City>(c => c.Value, MaxLength),
+            new StringNotEmptyRule<City>(c => c.Value),
+            new StringMaxLengthRule<City>(c => c.Value, MaxLength),
         ];
 
         Debug.Assert(rules.Length > 0, "At least 1 validation rule must be provided");
