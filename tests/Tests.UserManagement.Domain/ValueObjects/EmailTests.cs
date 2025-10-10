@@ -1,5 +1,7 @@
 using Shared.Kernel;
+using UserManagement.Domain.Validation.Emails;
 using UserManagement.Domain.ValueObjects;
+using UserManagement.Domain.ValueObjects.Emails;
 
 namespace Tests.UserManagement.Domain.ValueObjects;
 
@@ -9,7 +11,7 @@ public sealed class EmailTests
     public void Email_WhenCreatedWithValidValue_ShouldReturnSuccess()
     {
         const string validEmail = "test@example.com";
-        IValidationRule<string>[] rules = [new AlwaysValidRule()];
+        IValidationRule<Email>[] rules = [new AlwaysValidRule()];
 
         Result<Email> result = EmailFactory.Create(validEmail, rules);
 
@@ -21,7 +23,7 @@ public sealed class EmailTests
     public void Email_WhenCreatedWithEmptyString_ShouldReturnFailure()
     {
         const string emptyEmail = "";
-        IValidationRule<string>[] rules = [new AlwaysInvalidRule()];
+        IValidationRule<Email>[] rules = [new AlwaysInvalidRule()];
 
         Result<Email> result = EmailFactory.Create(emptyEmail, rules);
 
@@ -31,7 +33,7 @@ public sealed class EmailTests
     [Fact]
     public void Email_WhenCreatedWithNull_ShouldReturnFailure()
     {
-        IValidationRule<string>[] rules = [new AlwaysInvalidRule()];
+        IValidationRule<Email>[] rules = [new AlwaysInvalidRule()];
 
         Result<Email> result = EmailFactory.Create(null!, rules);
 
@@ -42,7 +44,7 @@ public sealed class EmailTests
     public void Email_WhenComparedWithSameValue_ShouldBeEqual()
     {
         const string emailValue = "test@example.com";
-        IValidationRule<string>[] rules = [new AlwaysValidRule()];
+        IValidationRule<Email>[] rules = [new AlwaysValidRule()];
         Result<Email> result1 = EmailFactory.Create(emailValue, rules);
         Result<Email> result2 = EmailFactory.Create(emailValue, rules);
 
@@ -52,7 +54,7 @@ public sealed class EmailTests
     [Fact]
     public void Email_WhenComparedWithDifferentValue_ShouldNotBeEqual()
     {
-        IValidationRule<string>[] rules = [new AlwaysValidRule()];
+        IValidationRule<Email>[] rules = [new AlwaysValidRule()];
         Result<Email> result1 = EmailFactory.Create("test1@example.com", rules);
         Result<Email> result2 = EmailFactory.Create("test2@example.com", rules);
 
@@ -63,7 +65,7 @@ public sealed class EmailTests
     public void Email_WhenCreatedWithMultipleValidRules_ShouldReturnSuccess()
     {
         const string validEmail = "test@example.com";
-        IValidationRule<string>[] rules = [new AlwaysValidRule()];
+        IValidationRule<Email>[] rules = [new EmailNotEmptyRule(), new DomainNotEmptyRule()];
 
         Result<Email> result = EmailFactory.Create(validEmail, rules);
 
@@ -75,21 +77,21 @@ public sealed class EmailTests
     public void Email_WhenCreatedWithOneInvalidRule_ShouldReturnFailure()
     {
         const string email = "test@example.com";
-        IValidationRule<string>[] rules = [new AlwaysValidRule(), new AlwaysInvalidRule()];
+        IValidationRule<Email>[] rules = [new AlwaysValidRule(), new AlwaysInvalidRule()];
 
         Result<Email> result = EmailFactory.Create(email, rules);
 
         result.IsFailure.Should().BeTrue();
     }
 
-    private sealed class AlwaysValidRule : IValidationRule<string>
+    private sealed class AlwaysValidRule : IValidationRule<Email>
     {
-        public Result Validate(string value) => ResultFactory.Success();
+        public Result Validate(Email email) => ResultFactory.Success();
     }
 
-    private sealed class AlwaysInvalidRule : IValidationRule<string>
+    private sealed class AlwaysInvalidRule : IValidationRule<Email>
     {
-        public Result Validate(string value)
+        public Result Validate(Email email)
         {
             Error error = ErrorFactory.Create("Email.Invalid", "Email is invalid");
             return ResultFactory.Failure(error);

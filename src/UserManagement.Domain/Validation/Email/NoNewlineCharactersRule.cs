@@ -1,7 +1,7 @@
 using System.Diagnostics;
 using Shared.Kernel;
 
-namespace UserManagement.Domain.Validation.Email;
+namespace UserManagement.Domain.Validation.Emails;
 
 /// <summary>
 /// Validates that the email does not contain newline characters (\n, \r).
@@ -10,6 +10,8 @@ public sealed class NoNewlineCharactersRule : EmailValidationRuleBase
 {
     protected override string ErrorMessage => "Email cannot contain newline characters";
 
-    public override Result Validate(string value) =>
-        (value.Contains('\n') || value.Contains('\r')) ? CreateFailure() : CreateSuccess();
+    public override Result Validate(ValueObjects.Emails.Email email) =>
+        (email.Value.Contains('\n') || email.Value.Contains('\r'))
+            ? CreateFailure()
+            : CreateSuccess();
 }

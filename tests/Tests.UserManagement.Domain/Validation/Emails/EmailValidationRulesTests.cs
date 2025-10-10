@@ -1,8 +1,9 @@
 using AwesomeAssertions;
 using Shared.Kernel;
-using UserManagement.Domain.Validation.Email;
+using UserManagement.Domain.Validation.Emails;
+using UserManagement.Domain.ValueObjects.Emails;
 
-namespace Tests.UserManagement.Domain.Validation.Email;
+namespace Tests.UserManagement.Domain.Validation.Emails;
 
 public sealed class EmailValidationRulesTests
 {
@@ -45,7 +46,7 @@ public sealed class EmailValidationRulesTests
     )] // 65 char local part
     public void EmailRules_WhenCombined_ShouldValidateCorrectly(string email, bool expectedValid)
     {
-        IValidationRule<string>[] rules =
+        IValidationRule<Email>[] rules =
         [
             new EmailNotEmptyRule(),
             new ExactlyOneAtSymbolRule(),
@@ -62,8 +63,9 @@ public sealed class EmailValidationRulesTests
             new NoConsecutiveDotsInDomainRule(),
         ];
 
-        RuleComposer<string> composedRule = RuleComposerFactory.Create(rules);
-        Result result = composedRule.Validate(email);
+        Email emailObj = new(email);
+        RuleComposer<Email> composedRule = RuleComposerFactory.Create(rules);
+        Result result = composedRule.Validate(emailObj);
 
         result.IsSuccess.Should().Be(expectedValid);
     }
